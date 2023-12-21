@@ -151,6 +151,9 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
+    minitest-rails (7.1.0)
+      minitest (~> 5.20)
+      railties (~> 7.1.0)
     msgpack (1.7.2)
     mutex_m (0.2.0)
     nenv (0.3.0)
@@ -292,6 +295,7 @@ DEPENDENCIES
   guard-minitest
   importmap-rails
   jbuilder
+  minitest-rails
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.2)
