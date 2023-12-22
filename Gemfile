@@ -61,6 +61,7 @@ group :development do
   
   gem 'guard'
   gem 'guard-minitest'
+  gem "minitest-rails"
 end
 
 group :test do

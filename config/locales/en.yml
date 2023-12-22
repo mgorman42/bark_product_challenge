@@ -28,4 +28,21 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      user:
+        password: "Password"
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              blank: "Please enter a password."
+              contains_lowercase: "must contain a lowercase letter"
+              contains_uppercase: "must contain an uppercase letter"
+              contains_digit: "must contain a number"
+              contains_special_character: "special character"
+              length: "must be atleast 12 characters long"
+              password_too_long: "can't be more than 72 characters long"
+            password_confirmation:
+              confirmation: "doesn't match Password"
