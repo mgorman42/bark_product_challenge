@@ -5,8 +5,12 @@ class User < ApplicationRecord
     contains_digit:             /\d+/,
     contains_special_character: /[^\w\d]+/
   }
+  PASSWORD_MIN_LENGTH = 12
   has_secure_password
-  validates :password, length: { minimum: 12 , message: I18n.t("activerecord.errors.models.user.attributes.password.length")}, allow_blank: true
+  validates :password, length: {
+    minimum: PASSWORD_MIN_LENGTH,
+    message: I18n.t("activerecord.errors.models.user.attributes.password.length", length: PASSWORD_MIN_LENGTH)
+  }, allow_blank: true
   validate :validate_password_requirements, if: -> { password.present? }
 
   def validate_password_requirements

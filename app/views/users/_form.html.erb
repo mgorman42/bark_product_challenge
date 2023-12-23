@@ -1,17 +1,31 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div data-controller="users--form">
+  <%= form_with(model: user) do |form| %>
+    <%= form.label :password %>
+    <%= form.password_field(
+      :password,
+      "data-users--form-target" => "password",
+      "data-action" => "users--form#validatePassword")
+    %>
+    <%= form.label :password_confirmation %>
+    <%= form.password_field( :password_confirmation,
+      "data-users--form-target" => "passwordConfirmation",
+      "data-action" => "users--form#validatePassword") %>
+    <ul>
+      <% message = t("activerecord.errors.models.user.attributes.password.length", length: User::PASSWORD_MIN_LENGTH) %>
+      <% is_error = user.errors["password"].include? message %>
+      <li data-users--form-target="validations" validation-type="length" validation-value="<%= User::PASSWORD_MIN_LENGTH %>" class="<%= class_names(fail_password_validation: is_error) %>"> <%= message %> </li>
+      <%  User::PASSWORD_VALIDATIONS.each do |type, regex| %>
+        <% message = I18n.t("activerecord.errors.models.user.attributes.password.#{type}") %>
+        <% is_error = user.errors["password"].include? message %>
+        <li id="<%= type %>" data-users--form-target="validations" validation-type="regex" validation-value="<%= regex.inspect %>" class="<%= class_names(fail_password_validation: is_error) %>"> <%= message %> </li>
+      <% end %>
+      <% message = t("activerecord.errors.models.user.attributes.password_confirmation.confirmation") %>
+      <% is_error = user.errors["password_confirmation"].include? message %>
+      <li id="password_confirmation" data-users--form-target="passwordConfirmationMessage" class="<%= class_names(fail_password_validation: is_error) %>"> <%= message %> </li>
+    </ul>
 
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div>
+      <%= form.submit( disabled: true, "data-users--form-target" => "submit" )%>
     </div>
   <% end %>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

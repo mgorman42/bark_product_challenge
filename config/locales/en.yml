@@ -32,17 +32,18 @@ en:
     attributes:
       user:
         password: "Password"
+        password_confirmation: "Password Confirmation"
     errors:
       models:
         user:
           attributes:
             password:
               blank: "Please enter a password."
-              contains_lowercase: "must contain a lowercase letter"
-              contains_uppercase: "must contain an uppercase letter"
-              contains_digit: "must contain a number"
-              contains_special_character: "special character"
-              length: "must be atleast 12 characters long"
-              password_too_long: "can't be more than 72 characters long"
+              contains_lowercase: "Must contain a lowercase letter"
+              contains_uppercase: "Must contain an uppercase letter"
+              contains_digit: "Must contain a number"
+              contains_special_character: "Must contain a special character"
+              length: "Must be atleast %{length} characters long"
+              password_too_long: "Can't be more than 72 characters long"
             password_confirmation:
-              confirmation: "doesn't match Password"
+              confirmation: "Password and Confirmation must match"
