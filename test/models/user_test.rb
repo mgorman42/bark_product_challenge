@@ -37,14 +37,14 @@ class UserTest < ActiveSupport::TestCase
       assert_password_valid(valid_password)
       assert_password_valid(min_length_password)
       assert_password_valid(max_length_password)
-      assert_password_invalid(valid_password, "doesn't match Password", "")
-      assert_password_invalid(valid_password, "doesn't match Password", valid_password.reverse )
-      assert_password_invalid(short_password, "must be atleast 12 characters long")
-      assert_password_invalid(no_lowercase_password, "must contain a lowercase letter")
-      assert_password_invalid(no_caps_password, "must contain an uppercase letter")
-      assert_password_invalid(no_num_password, "must contain a number")
-      assert_password_invalid(no_sybmbol_password, "special character")
-      assert_password_invalid(to_long_password, "can't be more than 72 characters long")
+      assert_password_invalid(valid_password, "Password and Confirmation must match", "")
+      assert_password_invalid(valid_password, "Password and Confirmation must match", valid_password.reverse )
+      assert_password_invalid(short_password, "Must be atleast 12 characters long")
+      assert_password_invalid(no_lowercase_password, "Must contain a lowercase letter")
+      assert_password_invalid(no_caps_password, "Must contain an uppercase letter")
+      assert_password_invalid(no_num_password, "Must contain a number")
+      assert_password_invalid(no_sybmbol_password, "Must contain a special character")
+      assert_password_invalid(to_long_password, "Can't be more than 72 characters long")
     end
   end
 end

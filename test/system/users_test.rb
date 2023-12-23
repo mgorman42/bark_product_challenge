@@ -1,41 +1,63 @@
 require "application_system_test_case"
 
 class UsersTest < ApplicationSystemTestCase
-=begin
-  setup do
-    @user = users(:one)
-  end
+  let(:valid_password)        { "ValidPassword1234!@#" }
+  let(:min_length_password)   { "Ab1@Ab1@Ab1@" }
+  let(:short_password)        { "Ab1@Ab1@Ab1" }
+  let(:no_caps_password)      { "nocapspassword1234!@#" }
+  let(:no_lowercase_password) { "NOLOWERCASE1234!@#" }
+  let(:no_num_password)       { "NoNumberPassword!@#" }
+  let(:no_sybmbol_password)   { "NoSymbolPassword1234" }
+  let(:max_length_password)   { "Ab1@" * 18 }
+  let(:too_long_password)      { "Ab1@" * 20 }
 
-  test "visiting the index" do
-    visit users_url
-    assert_selector "h1", text: "Users"
+  def fill_in_password(password, password_confirmation=nil)
+    password_confirmation ||= password
+    fill_in "Password", with: password
+    fill_in "Password Confirmation", with: password_confirmation
   end
 
   test "should create user" do
-    visit users_url
-    click_on "New user"
+    visit root_url
+
+    fill_in_password(valid_password)
 
     click_on "Create User"
 
     assert_text "User was successfully created"
-    click_on "Back"
+    click_on "New User"
   end
 
-  test "should update User" do
-    visit user_url(@user)
-    click_on "Edit this user", match: :first
+  test "should validate password" do
+    visit root_url
+    button = find_button("Create User", disabled: true)
+    assert button[:disabled] == "true"
 
-    click_on "Update User"
+    fill_in_password(valid_password)
+    assert_not button[:disabled] == "true"
 
-    assert_text "User was successfully updated"
-    click_on "Back"
+    fill_in_password(valid_password, "")
+    assert button[:disabled] == "true"
+
+    fill_in_password(min_length_password)
+    assert_not button[:disabled] == "true"
+
+    fill_in_password(short_password)
+    assert button[:disabled] == "true"
+
+    fill_in_password(no_caps_password)
+    assert button[:disabled] == "true"
+
+    fill_in_password(no_lowercase_password)
+    assert button[:disabled] == "true"
+
+    fill_in_password(no_num_password)
+    assert button[:disabled] == "true"
+
+    fill_in_password(no_sybmbol_password)
+    assert button[:disabled] == "true"
+
+    fill_in_password(max_length_password)
+    assert_not button[:disabled] == "true"
   end
-
-  test "should destroy User" do
-    visit user_url(@user)
-    click_on "Destroy this user", match: :first
-
-    assert_text "User was successfully destroyed"
-  end
-=end
 end
