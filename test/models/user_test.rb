@@ -12,7 +12,7 @@ class UserTest < ActiveSupport::TestCase
     let(:no_num_password)       { "NoNumberPassword!@#" }
     let(:no_sybmbol_password)   { "NoSymbolPassword1234" }
     let(:max_length_password)   { "Ab1@" * 18 }
-    let(:to_long_password)      { "Ab1@" * 20 }
+    let(:too_long_password)     { "Ab1@" * 20 }
 
     def set_password(password, password_confirmation)
       user.password = password
@@ -44,7 +44,7 @@ class UserTest < ActiveSupport::TestCase
       assert_password_invalid(no_caps_password, "Must contain an uppercase letter")
       assert_password_invalid(no_num_password, "Must contain a number")
       assert_password_invalid(no_sybmbol_password, "Must contain a special character")
-      assert_password_invalid(to_long_password, "Can't be more than 72 characters long")
+      assert_password_invalid(too_long_password, "Can't be more than 72 characters long")
     end
   end
 end

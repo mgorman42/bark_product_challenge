@@ -13,3 +13,83 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  background-color: #f3f4f7;
+  color: #444444;
+  font-family: "Greycliff CF", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.page-header {
+  width: 100%;
+  text-align: center;
+  h1 {
+    color: #1e1e1e;    
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1.25;
+  }
+}
+
+.page-body {
+  background-color: white;
+  border-radius: 20px;
+  width: 640px;
+  margin: auto;
+  padding: 20px 30px;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 30px;
+
+  label {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  input {
+    border: 0.1rem solid rgba(30,30,30,0.25);
+    border-radius: 4px;
+    box-shadow: none;
+  }
+
+  input, div.value {
+    padding: 10px 16px 10px 0px;
+    font-size: 18px;
+    width: 580px;
+  }
+}
+
+.form-submit {
+  width: 100%;
+  margin-bottom: 30px;
+
+  input, button {
+    margin: auto;
+    display: block;
+    background-color: rgb(25, 66, 216);
+    color: white;
+    padding: 20px 33px;
+    border-radius: 234.5px;
+    font-weight: 700;
+    font-size: 18px;
+
+  }
+  input:disabled {
+    background-color: rgb(105, 132, 230);
+  }
+}
+
+.validations-list {
+  .fail_password_validation {
+    color: #C44;
+  }
+
+  .pass_password_validation {
+    color: #aaa;
+  }
+}
