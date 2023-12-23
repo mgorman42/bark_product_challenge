@@ -47,7 +47,7 @@ export default class extends Controller {
   validatePasswordMatch() {
     let password = this.passwordTarget.value;
     let passwordConfirmation = this.passwordConfirmationTarget.value;
-    if (password == passwordConfirmation) {
+    if (passwordConfirmation && password == passwordConfirmation) {
       this.passwordConfirmationMessageTarget.classList.add("pass_password_validation");
       this.passwordConfirmationMessageTarget.classList.remove("fail_password_validation");
     } else {
