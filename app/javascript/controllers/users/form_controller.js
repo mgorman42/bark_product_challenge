@@ -13,16 +13,17 @@ export default class extends Controller {
     let validationValue = element.getAttribute("validation-value");
     switch(validationType) {
       case "length":
-        this.validatePasswordMinLength(element, parseInt(validationValue));
+        this.validatePasswordMinLength(element, validationValue);
         break;
       case "regex":
-	this.validatePasswordRegex(element, validationValue.replaceAll("/",""));
+	this.validatePasswordRegex(element, validationValue);
         break;
     }
     this.validatePasswordMatch();
   }
 
   validatePasswordMinLength(element, length) {
+    length = parseInt(length);
     let password = this.passwordTarget.value;
     if (password.length < length) {
       element.classList.remove("pass_password_validation");
@@ -33,7 +34,9 @@ export default class extends Controller {
     }
   }
 
-  validatePasswordRegex(element, regex) {
+  validatePasswordRegex(element, regexString) {
+    let regexArray = regexString.split("/")
+    let regex = new RegExp(regexArray[1], regexArray[2])
     let password = this.passwordTarget.value;
     if (password.match(regex)) {
       element.classList.add("pass_password_validation");
