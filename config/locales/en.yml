@@ -30,7 +30,9 @@
 en:
   activerecord:
     attributes:
+      id: "ID"
       user:
+        new: "New User"
         password: "Password"
         password_confirmation: "Password Confirmation"
     errors:
