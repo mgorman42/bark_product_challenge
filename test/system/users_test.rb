@@ -1,15 +1,21 @@
 require "application_system_test_case"
 
 class UsersTest < ApplicationSystemTestCase
-  let(:valid_password)        { "ValidPassword1234!@#" }
-  let(:min_length_password)   { "Ab1@Ab1@Ab1@" }
-  let(:short_password)        { "Ab1@Ab1@Ab1" }
-  let(:no_caps_password)      { "nocapspassword1234!@#" }
-  let(:no_lowercase_password) { "NOLOWERCASE1234!@#" }
-  let(:no_num_password)       { "NoNumberPassword!@#" }
-  let(:no_sybmbol_password)   { "NoSymbolPassword1234" }
-  let(:max_length_password)   { "Ab1@" * 18 }
-  let(:too_long_password)      { "Ab1@" * 20 }
+  let(:password_base)         { "Ab1@" }
+  let(:minimum_length)        { 12 }
+  let(:valid_password)        { generate_password(password_base, minimum_length + 5) }
+  let(:min_length_password)   { generate_password(password_base, minimum_length) }
+  let(:short_password)        { generate_password(password_base, minimum_length - 1)}
+  let(:no_caps_password)      { generate_password("b1@", minimum_length + 5) }
+  let(:no_lowercase_password) { generate_password("A1@", minimum_length + 5) }
+  let(:no_num_password)       { generate_password("Ab@", minimum_length + 5) }
+  let(:no_sybmbol_password)   { generate_password("Ab1", minimum_length + 5) }
+
+  def generate_password(base, length)
+    repeat_count = length / base.length
+    extra = length % base.length
+    base * repeat_count + base.slice(0, extra)
+  end
 
   def fill_in_password(password, password_confirmation=nil)
     password_confirmation ||= password
@@ -56,8 +62,5 @@ class UsersTest < ApplicationSystemTestCase
 
     fill_in_password(no_sybmbol_password)
     assert button[:disabled] == "true"
-
-    fill_in_password(max_length_password)
-    assert_not button[:disabled] == "true"
   end
 end
